@@ -2,7 +2,7 @@
 
 ## Objective
 
-To simulate real-world SOC (Security Operations Center) scenarios and gain hands-on experience in detecting and responding to cyber threats. The primary focus was to ingest and analyze logs within an Endpoint Detection and Response system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen my understanding of network security, attack patterns, and defensive strategies.
+To simulate real-world SOC (Security Operations Center) scenarios and gain hands-on experience in detecting and responding to cyber threats. The primary focus was to ingest and analyze logs within an Endpoint Detection and Response (EDR) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen my understanding of network security, attack patterns, and defensive strategies.
 
 ### Skills Learned
 
