@@ -2,21 +2,23 @@
 
 ## Objective
 
-This lab is aimed to establish a controlled environment for simulating and detecting cyber attacks. The primary focus was to ingest and analyze logs within a Security Information and Event Management (SIEM) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen my understanding of network security, attack patterns, and defensive strategies.
+To simulate real-world SOC (Security Operations Center) scenarios and gain hands-on experience in detecting and responding to cyber threats.. The primary focus was to ingest and analyze logs within a Security Information and Event Management (SIEM) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen my understanding of network security, attack patterns, and defensive strategies.
 
 ### Skills Learned
 
-- Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs.
-- Ability to generate and recognize attack signatures and patterns.
+- Setting up a virtual SOC environment.
+- Configuring EDR agents and logging tools.
+- Simulating adversarial attacks (e.g., dumping LSASS).
+- Crafting detection and response rules.
 - Enhanced knowledge of network protocols and security vulnerabilities.
+- Automating malware detection and blocking ransomware activity.
 - Development of critical thinking and problem-solving skills in cybersecurity.
 
 ### Tools Used
-
-- Security Information and Event Management (SIEM) system for log ingestion and analysis.
-- Network analysis tools (such as Wireshark) for capturing and examining network traffic.
-- Telemetry generation tools to create realistic network traffic and attack scenarios.
+- VMware Workstation Pro: For setting up Linux and Windows virtual machines.
+- Sysmon: Provides detailed Windows telemetry.
+- Sliver C2: Command and Control server for testing adversarial scenarios.
+- LimaCharlie EDR: Endpoint Detection and Response for telemetry and automated rules.
 
 ## Steps
 After diving into a few blog posts on how to become a SOC analyst, I set up my own virtual lab, following the steps from Eric Capuano’s guide. It was quite the process but worth the effort for hands-on experience in cybersecurity.
