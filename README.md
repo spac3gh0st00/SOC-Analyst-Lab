@@ -40,6 +40,7 @@ After learning to detect attacks, I took things a step further by creating rules
 For anyone interested in SOC work, this series of blog posts is a great place to start!
 
 If you're curious, you can follow the same steps through these blog links:
-<a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part">Part 1 </a>
-<a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-ea2">Part 2 </a>
-<a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-77e">Part 3 </a>
+
+- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part">Part 1 </a>
+- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-ea2">Part 2 </a>
+- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-77e">Part 3 </a>
