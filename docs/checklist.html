@@ -14,7 +14,6 @@
     --border2: #243040;
     --green: #39d353;
     --green-dim: #1a5c28;
-    --green-glow: rgba(57,211,83,0.12);
     --amber: #e3a642;
     --blue: #58a6ff;
     --purple: #a78bfa;
@@ -25,101 +24,29 @@
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'IBM Plex Sans', sans-serif;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; padding: 2rem 1rem; }
   .container { max-width: 780px; margin: 0 auto; }
 
-  /* Header */
   .header { margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-  .title-block {}
-  .lab-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--green);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .lab-tag::before {
-    content: '';
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    animation: pulse 2s infinite;
-  }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0; }
+  .lab-tag { font-family: var(--mono); font-size: 11px; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .lab-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   h1 { font-family: var(--mono); font-size: 22px; font-weight: 600; color: #fff; line-height: 1.2; }
   .subtitle { font-size: 13px; color: var(--text2); margin-top: 6px; }
 
-  /* Progress */
-  .progress-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 20px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: center;
-  }
+  .progress-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; }
   .progress-label { font-family: var(--mono); font-size: 11px; color: var(--text2); margin-bottom: 8px; letter-spacing: 0.06em; }
-  .bar-track {
-    height: 5px;
-    background: var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    background: var(--green);
-    border-radius: 3px;
-    transition: width 0.4s cubic-bezier(.4,0,.2,1);
-    box-shadow: 0 0 8px var(--green);
-  }
-  .progress-count {
-    font-family: var(--mono);
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--green);
-    white-space: nowrap;
-  }
+  .bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 8px var(--green); }
+  .progress-count { font-family: var(--mono); font-size: 24px; font-weight: 600; color: var(--green); white-space: nowrap; }
   .progress-count span { font-size: 13px; color: var(--text2); font-weight: 400; }
 
-  /* Phase */
   .phase { margin-bottom: 2rem; }
-  .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    cursor: pointer;
-    user-select: none;
-  }
+  .phase-header { display: flex; align-items: center; gap: 10px; padding: 10px 0; margin-bottom: 10px; cursor: pointer; user-select: none; }
   .phase-header:hover .phase-name { color: #fff; }
-  .phase-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
+  .phase-num { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em; flex-shrink: 0; }
   .p0 { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
   .p1 { background: rgba(167,139,250,0.15); color: var(--purple); border: 1px solid rgba(167,139,250,0.3); }
   .p2 { background: rgba(227,166,66,0.15); color: var(--amber); border: 1px solid rgba(227,166,66,0.3); }
@@ -127,87 +54,63 @@
   .p4 { background: rgba(227,166,66,0.15); color: var(--amber); border: 1px solid rgba(227,166,66,0.3); }
   .phase-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); flex: 1; transition: color 0.15s; }
   .phase-eta { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-  .phase-arrow { font-size: 10px; color: var(--text3); transition: transform 0.2s; }
+  .phase-progress { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-left: auto; }
+  .phase-arrow { font-size: 10px; color: var(--text3); transition: transform 0.2s; flex-shrink: 0; }
   .phase.collapsed .phase-arrow { transform: rotate(-90deg); }
   .phase.collapsed .tasks { display: none; }
-  .phase-progress {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text3);
-    margin-left: auto;
-  }
 
-  /* Tasks */
   .tasks { display: flex; flex-direction: column; gap: 6px; padding-left: 2px; }
 
-  .task {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-    cursor: pointer;
-  }
-  .task:hover { border-color: var(--border2); }
+  .task { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: border-color 0.2s; }
   .task.done { border-color: var(--green-dim); background: rgba(57,211,83,0.04); }
 
-  .task-main {
+  .task-main { display: flex; align-items: flex-start; gap: 0; }
+
+  /* Checkbox area — left side, click to toggle done */
+  .task-check {
+    padding: 13px 12px 13px 14px;
+    cursor: pointer;
+    flex-shrink: 0;
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 12px 14px;
+    padding-top: 14px;
   }
-
-  .cb {
-    width: 17px; height: 17px;
-    border-radius: 4px;
-    border: 1.5px solid var(--border2);
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    background: transparent;
-  }
-  .task.done .cb {
-    background: var(--green);
-    border-color: var(--green);
-    box-shadow: 0 0 6px rgba(57,211,83,0.4);
-  }
+  .cb { width: 17px; height: 17px; border-radius: 4px; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: transparent; flex-shrink: 0; }
+  .task.done .cb { background: var(--green); border-color: var(--green); box-shadow: 0 0 6px rgba(57,211,83,0.4); }
   .cb-check { display: none; }
   .task.done .cb-check { display: block; }
 
-  .task-body { flex: 1; min-width: 0; }
-  .task-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.4;
-    transition: color 0.2s;
-  }
+  /* Body — middle, not clickable on its own */
+  .task-body { flex: 1; min-width: 0; padding: 12px 0; }
+  .task-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; transition: color 0.2s; }
   .task.done .task-title { color: var(--text3); text-decoration: line-through; text-decoration-color: var(--green-dim); }
-
   .task-meta { display: flex; align-items: center; gap: 8px; margin-top: 5px; flex-wrap: wrap; }
-  .badge {
-    font-family: var(--mono);
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 3px;
-    letter-spacing: 0.04em;
-    font-weight: 500;
-  }
+
+  .badge { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.04em; font-weight: 500; }
   .b-setup  { background: rgba(88,166,255,0.12);  color: #58a6ff; }
   .b-attack { background: rgba(248,81,73,0.12);   color: #f85149; }
   .b-detect { background: rgba(57,211,83,0.1);    color: var(--green); }
   .b-doc    { background: rgba(227,166,66,0.12);  color: var(--amber); }
   .b-siem   { background: rgba(167,139,250,0.12); color: var(--purple); }
-  .mitre {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text3);
-  }
+  .mitre { font-family: var(--mono); font-size: 10px; color: var(--text3); }
 
-  .expand-btn { font-size: 10px; color: var(--text3); margin-left: auto; flex-shrink: 0; transition: transform 0.2s; padding-top: 2px; }
-  .task.open .expand-btn { transform: rotate(180deg); }
+  /* Expand button — right side, click to toggle notes */
+  .task-expand {
+    padding: 13px 14px 13px 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 15px;
+    color: var(--text3);
+    font-size: 10px;
+    transition: color 0.15s;
+    user-select: none;
+  }
+  .task-expand:hover { color: var(--text2); }
+  .task.open .task-expand { color: var(--text2); }
+  .expand-icon { transition: transform 0.2s; display: inline-block; }
+  .task.open .expand-icon { transform: rotate(180deg); }
 
   .task-note {
     display: none;
@@ -219,48 +122,21 @@
     background: var(--bg);
   }
   .task.open .task-note { display: block; }
-  .task-note code {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--green);
-    background: rgba(57,211,83,0.08);
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
+  .task-note code { font-family: var(--mono); font-size: 11px; color: var(--green); background: rgba(57,211,83,0.08); padding: 1px 5px; border-radius: 3px; }
 
-  /* Divider */
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
 
-  /* Footer */
-  .footer {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .footer-text { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-  .reset-btn {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-    background: none;
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.15s;
-    letter-spacing: 0.04em;
-  }
+  .reset-btn { font-family: var(--mono); font-size: 11px; color: var(--text3); background: none; border: 1px solid var(--border); padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 0.15s; letter-spacing: 0.04em; }
   .reset-btn:hover { border-color: var(--border2); color: var(--text2); }
 
-  @media (max-width: 500px) {
-    h1 { font-size: 18px; }
-    .progress-count { font-size: 20px; }
-  }
+  .hint { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: 1.5rem; display: flex; gap: 16px; flex-wrap: wrap; }
+  .hint-item { display: flex; align-items: center; gap: 6px; }
+  .hint-icon { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--border2); display: inline-block; }
+  .hint-icon.green { background: var(--green); border-color: var(--green); }
+
+  @media (max-width: 500px) { h1 { font-size: 18px; } .progress-count { font-size: 20px; } }
 </style>
 </head>
 <body>
@@ -283,6 +159,11 @@
     </div>
   </div>
 
+  <div class="hint">
+    <div class="hint-item"><div class="hint-icon"></div> click checkbox to complete</div>
+    <div class="hint-item"><span style="color:var(--text2);font-size:11px">▼</span> click arrow to read notes</div>
+  </div>
+
   <!-- Phase 0 -->
   <div class="phase" id="phase0">
     <div class="phase-header" onclick="togglePhase('phase0')">
@@ -293,53 +174,57 @@
       <span class="phase-arrow">▼</span>
     </div>
     <div class="tasks">
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t0">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t0')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Boot Windows and Linux VMs, confirm static IPs and inter-VM connectivity</div>
             <div class="task-meta"><span class="badge b-setup">setup</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t0')"><span class="expand-icon">▼</span></div>
         </div>
         <div class="task-note">Both VMs need to ping each other before anything else. If not, check VMware — both should be on the same host-only or NAT adapter. Run <code>ping [LINUX_IP]</code> from Windows PowerShell to confirm.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t1">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t1')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Verify Sysmon is running and generating events</div>
             <div class="task-meta"><span class="badge b-setup">setup</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t1')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Run <code>Get-Service sysmon64</code> in PowerShell. Then check Event Viewer → Applications and Services Logs → Microsoft → Windows → Sysmon/Operational. You should see events.</div>
+        <div class="task-note">Run <code>Get-Service sysmon64</code> in PowerShell. Then check Event Viewer → Applications and Services Logs → Microsoft → Windows → Sysmon/Operational. You should see events populating.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t2">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t2')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Re-enroll LimaCharlie sensor on Windows VM and confirm online</div>
             <div class="task-meta"><span class="badge b-setup">setup</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t2')"><span class="expand-icon">▼</span></div>
         </div>
         <div class="task-note">Log into LimaCharlie, grab the sensor installer for your org, run it on Windows as Administrator. Confirm the sensor shows green/online in the LC dashboard before moving on.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t3">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t3')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Relaunch Sliver C2, generate a fresh implant and confirm session checks in</div>
             <div class="task-meta"><span class="badge b-setup">setup</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t3')"><span class="expand-icon">▼</span></div>
         </div>
         <div class="task-note">Always generate a new implant — don't reuse old ones. Run <code>sliver-server</code> → <code>generate --http [LINUX_IP]</code> → stage via Python HTTP → execute on Windows. Confirm session appears in Sliver console.</div>
       </div>
+
     </div>
   </div>
-
   <hr class="divider">
 
   <!-- Phase 1 -->
@@ -352,64 +237,69 @@
       <span class="phase-arrow">▼</span>
     </div>
     <div class="tasks">
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t4">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t4')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Provision a third Ubuntu 22.04 VM for Elastic Stack</div>
             <div class="task-meta"><span class="badge b-siem">siem</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t4')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Minimum 4GB RAM, 2 vCPUs, 50GB disk. Give it a static IP on the same network. This VM runs both Elasticsearch and Kibana. Don't go below the RAM minimum or Elasticsearch will OOM.</div>
+        <div class="task-note">Minimum 4GB RAM, 2 vCPUs, 50GB disk. Give it a static IP on the same network. This VM runs both Elasticsearch and Kibana. Don't go below the RAM minimum or Elasticsearch will crash.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t5">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t5')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Install Elasticsearch and save the generated superuser password</div>
             <div class="task-meta"><span class="badge b-siem">siem</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t5')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">The install prints the <code>elastic</code> superuser password once. Copy it immediately. If you miss it, reset with <code>sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic</code>.</div>
+        <div class="task-note">The install prints the <code>elastic</code> superuser password once. Copy it immediately. If you miss it: <code>sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic</code></div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t6">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t6')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Install Kibana and bind to 0.0.0.0 so it's reachable from host browser</div>
             <div class="task-meta"><span class="badge b-siem">siem</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t6')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Most common gotcha: Kibana defaults to <code>localhost</code>. Edit <code>/etc/kibana/kibana.yml</code> and set <code>server.host: "0.0.0.0"</code>. Then access it from your host at <code>http://[ELASTIC_VM_IP]:5601</code>.</div>
+        <div class="task-note">Most common gotcha: Kibana defaults to <code>localhost</code>. Edit <code>/etc/kibana/kibana.yml</code> and set <code>server.host: "0.0.0.0"</code>. Full setup commands in <code>docs/elastic-setup.md</code>.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t7">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t7')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Install Winlogbeat on Windows VM, point at Elastic, enable Sysmon module</div>
             <div class="task-meta"><span class="badge b-siem">siem</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t7')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Edit <code>winlogbeat.yml</code> — set <code>output.elasticsearch.hosts</code> to your Elastic VM IP and add <code>ssl.verification_mode: none</code>. Add <code>Microsoft-Windows-Sysmon/Operational</code> to the event_logs list.</div>
+        <div class="task-note">Edit <code>winlogbeat.yml</code> — set <code>output.elasticsearch.hosts</code> to your Elastic VM IP. Add <code>ssl.verification_mode: none</code> and <code>Microsoft-Windows-Sysmon/Operational</code> to the event_logs list.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t8">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t8')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Confirm Sysmon events flow into Kibana Discover</div>
             <div class="task-meta"><span class="badge b-siem">siem</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t8')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">In Kibana → Discover, search <code>event.module: sysmon</code>. If nothing shows, check Winlogbeat logs on Windows: <code>Get-Content "C:\ProgramData\winlogbeat\logs\winlogbeat" -Tail 50</code>.</div>
+        <div class="task-note">In Kibana → Discover, search <code>event.module: sysmon</code>. If nothing shows, check Winlogbeat logs on Windows: <code>Get-Content "C:\ProgramData\winlogbeat\logs\winlogbeat" -Tail 50</code></div>
       </div>
+
     </div>
   </div>
-
   <hr class="divider">
 
   <!-- Phase 2 -->
@@ -422,64 +312,69 @@
       <span class="phase-arrow">▼</span>
     </div>
     <div class="tasks">
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t9">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t9')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Persistence via scheduled task</div>
             <div class="task-meta"><span class="badge b-attack">attack</span><span class="mitre">T1053.005</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t9')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Use <code>schtasks.exe</code> from your Sliver session to register a task that runs the implant on login. SOC interviews love this — it's in the top 5 most common real-world persistence mechanisms.</div>
+        <div class="task-note">Use <code>schtasks.exe</code> from your Sliver session to register a task that runs the implant on login. One of the most common real-world persistence mechanisms — high value for interviews.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t10">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t10')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Lateral movement with PsExec</div>
             <div class="task-meta"><span class="badge b-attack">attack</span><span class="mitre">T1021.002</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t10')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Use Sliver's psexec module or SysInternals PsExec. Watch for Event ID 7045 (service install) and 4624 (network logon) in Elastic — these are the canonical lateral movement signals analysts hunt for.</div>
+        <div class="task-note">Use Sliver's psexec module or SysInternals PsExec. Watch for Event ID 7045 (service install) and 4624 (network logon) in Elastic — the canonical lateral movement signals analysts hunt for.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t11">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t11')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Defense evasion via process injection</div>
             <div class="task-meta"><span class="badge b-attack">attack</span><span class="mitre">T1055</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t11')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Inject a payload into a legitimate process like <code>notepad.exe</code> or <code>explorer.exe</code>. Look for Sysmon Event ID 8 (CreateRemoteThread) in Elastic — anomalous cross-process memory writes are a strong detection signal.</div>
+        <div class="task-note">Inject a payload into a legitimate process like <code>notepad.exe</code>. Look for Sysmon Event ID 8 (CreateRemoteThread) in Elastic — anomalous cross-process memory writes are a strong detection signal.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t12">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t12')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Execution via PowerShell encoded command</div>
             <div class="task-meta"><span class="badge b-attack">attack</span><span class="mitre">T1059.001</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t12')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Run a base64-encoded PowerShell payload using the <code>-EncodedCommand</code> flag. Detect via KQL: <code>process.command_line: *-enc* or *-EncodedCommand*</code>. Extremely common in real-world intrusions and phishing payloads.</div>
+        <div class="task-note">Run a base64-encoded payload using <code>-EncodedCommand</code>. Detect via KQL: <code>process.command_line: *-enc*</code>. Extremely common in real-world phishing payloads and living-off-the-land attacks.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t13">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t13')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Persistence via new local admin account</div>
             <div class="task-meta"><span class="badge b-attack">attack</span><span class="mitre">T1136.001</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t13')"><span class="expand-icon">▼</span></div>
         </div>
         <div class="task-note">Create a user and add to Administrators via <code>net user</code> / <code>net localgroup</code>. Detect via Event ID 4720 (account created) and 4732 (added to privileged group) in Windows Security logs.</div>
       </div>
+
     </div>
   </div>
-
   <hr class="divider">
 
   <!-- Phase 3 -->
@@ -492,42 +387,45 @@
       <span class="phase-arrow">▼</span>
     </div>
     <div class="tasks">
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t14">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t14')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Write a KQL hunt query in Elastic Discover for each attack</div>
             <div class="task-meta"><span class="badge b-detect">detect</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t14')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">After every attack simulation, open Kibana Discover and hunt for it manually. Write a KQL query that finds it reliably. Save each as a saved search. This is your growing detection library.</div>
+        <div class="task-note">After every attack, open Kibana Discover and hunt for it manually. Write a KQL query that finds it reliably and save it. Do this immediately after each attack while the context is fresh.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t15">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t15')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Promote each KQL query to a detection rule with MITRE tags and alert</div>
             <div class="task-meta"><span class="badge b-detect">detect</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t15')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Kibana → Security → Detection Rules → Create Rule. Tag each rule with the correct MITRE tactic and technique. Re-run the attack afterward and confirm the alert fires. Screenshot it.</div>
+        <div class="task-note">Kibana → Security → Detection Rules → Create Rule. Tag each with the correct MITRE tactic and technique. Re-run the attack and confirm the alert fires. Screenshot it for your incident report.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t16">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t16')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
-            <div class="task-title">Mirror critical detections as D&R rules in LimaCharlie</div>
+            <div class="task-title">Mirror critical detections as D&amp;R rules in LimaCharlie</div>
             <div class="task-meta"><span class="badge b-detect">detect</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t16')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Having logic in both platforms shows cross-tool fluency — something interviewers ask about. Minimum: mirror the LSASS dump and scheduled task rules. Add an automated response action to at least one.</div>
+        <div class="task-note">Having logic in both platforms shows cross-tool fluency. Minimum: mirror the LSASS dump and scheduled task rules. Add an automated response action (process kill) to at least one.</div>
       </div>
+
     </div>
   </div>
-
   <hr class="divider">
 
   <!-- Phase 4 -->
@@ -540,90 +438,90 @@
       <span class="phase-arrow">▼</span>
     </div>
     <div class="tasks">
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t17">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t17')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Write a one-page incident report for each TTP simulated</div>
             <div class="task-meta"><span class="badge b-doc">docs</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t17')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Format: Summary → Timeline → Detection method → IOCs → Root cause → Remediation. One page max. This is exactly what a Tier 2 SOC analyst writes after triage, and having 5–6 of these in GitHub is rare.</div>
+        <div class="task-note">Format: Summary → Timeline → Detection method → IOCs → Root cause → Remediation. One page max. This is exactly what a Tier 2 SOC analyst writes after triage. Having 5–6 of these in GitHub is rare.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t18">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t18')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Add annotated screenshots of Kibana alerts and LC telemetry to each report</div>
             <div class="task-meta"><span class="badge b-doc">docs</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t18')"><span class="expand-icon">▼</span></div>
         </div>
         <div class="task-note">Draw arrows or boxes on key fields in the screenshots. A hiring manager scanning your GitHub will stop on a well-annotated telemetry screenshot — it immediately shows you know what you're looking at.</div>
       </div>
-      <div class="task" onclick="toggleTask(this)">
+
+      <div class="task" id="t19">
         <div class="task-main">
-          <div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="task-check" onclick="toggleDone('t19')"><div class="cb"><svg class="cb-check" width="10" height="8" viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,6.5 9,1" stroke="#0a0e13" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
           <div class="task-body">
             <div class="task-title">Add a /reports folder to GitHub with all incident reports linked from README</div>
             <div class="task-meta"><span class="badge b-doc">docs</span></div>
           </div>
-          <div class="expand-btn">▼</div>
+          <div class="task-expand" onclick="toggleOpen('t19')"><span class="expand-icon">▼</span></div>
         </div>
-        <div class="task-note">Structure as <code>/reports/T1053-scheduled-task.md</code>, <code>/reports/T1021-lateral-movement.md</code> etc. Link each from the README table. This turns the repo from a setup guide into a real analyst portfolio.</div>
+        <div class="task-note">Structure as <code>/reports/T1053-scheduled-task.md</code>, <code>/reports/T1021-lateral-movement.md</code> etc. Link each from the README. This turns the repo from a setup guide into a real analyst portfolio.</div>
       </div>
+
     </div>
   </div>
 
   <div class="footer">
-    <div class="footer-text">github.com/spac3gh0st00 &mdash; SOC Detection Lab</div>
+    <div class="footer-text">github.com/spac3gh0st00 &mdash; SOC-Analyst-Lab</div>
     <button class="reset-btn" onclick="resetAll()">reset progress</button>
   </div>
 
 </div>
-
 <script>
   var TOTAL = 20;
+  var phaseMap = { phase0:[0,1,2,3], phase1:[4,5,6,7,8], phase2:[9,10,11,12,13], phase3:[14,15,16], phase4:[17,18,19] };
 
-  function getState() {
-    try { return JSON.parse(localStorage.getItem('soc-checklist') || '{}'); } catch(e) { return {}; }
-  }
-  function saveState(s) {
-    try { localStorage.setItem('soc-checklist', JSON.stringify(s)); } catch(e) {}
-  }
+  function getState() { try { return JSON.parse(localStorage.getItem('soc-lab-v2') || '{}'); } catch(e) { return {}; } }
+  function saveState(s) { try { localStorage.setItem('soc-lab-v2', JSON.stringify(s)); } catch(e) {} }
 
   function updateProgress() {
     var done = document.querySelectorAll('.task.done').length;
     document.getElementById('bar').style.width = (done / TOTAL * 100) + '%';
     document.getElementById('count').innerHTML = done + ' <span>/ ' + TOTAL + '</span>';
-    ['0','1','2','3','4'].forEach(function(i) {
-      var phase = document.getElementById('phase' + i);
-      if (!phase) return;
-      var tasks = phase.querySelectorAll('.task');
-      var pDone = phase.querySelectorAll('.task.done').length;
-      var pp = document.getElementById('pp' + i);
-      if (pp) pp.textContent = pDone + '/' + tasks.length;
+    Object.keys(phaseMap).forEach(function(pid) {
+      var ids = phaseMap[pid];
+      var pDone = ids.filter(function(i){ return document.getElementById('t'+i) && document.getElementById('t'+i).classList.contains('done'); }).length;
+      var pp = document.getElementById('p' + pid.replace('phase','p'));
+      if (pp) pp.textContent = pDone + '/' + ids.length;
+    });
+    ['0','1','2','3','4'].forEach(function(i){
+      var el = document.getElementById('pp'+i);
+      if(!el) return;
+      var ids = phaseMap['phase'+i];
+      var pDone = ids.filter(function(j){ var t=document.getElementById('t'+j); return t && t.classList.contains('done'); }).length;
+      el.textContent = pDone + '/' + ids.length;
     });
   }
 
-  function toggleTask(el) {
-    var wasDone = el.classList.contains('done');
-    var wasOpen = el.classList.contains('open');
-    if (!wasDone) {
-      el.classList.add('done');
-      el.classList.remove('open');
-    } else if (!wasOpen) {
-      el.classList.add('open');
-    } else {
-      el.classList.remove('done');
-      el.classList.remove('open');
-    }
+  function toggleDone(id) {
+    var el = document.getElementById(id);
+    el.classList.toggle('done');
     var state = getState();
-    var idx = Array.from(document.querySelectorAll('.task')).indexOf(el);
-    state['t' + idx] = el.classList.contains('done');
+    state[id] = el.classList.contains('done');
     saveState(state);
     updateProgress();
+  }
+
+  function toggleOpen(id) {
+    var el = document.getElementById(id);
+    el.classList.toggle('open');
   }
 
   function togglePhase(id) {
@@ -632,18 +530,15 @@
 
   function resetAll() {
     if (!confirm('Reset all progress?')) return;
-    document.querySelectorAll('.task').forEach(function(t) {
-      t.classList.remove('done', 'open');
-    });
+    document.querySelectorAll('.task').forEach(function(t) { t.classList.remove('done','open'); });
     saveState({});
     updateProgress();
   }
 
   function restoreState() {
     var state = getState();
-    var tasks = document.querySelectorAll('.task');
-    tasks.forEach(function(t, i) {
-      if (state['t' + i]) t.classList.add('done');
+    Object.keys(state).forEach(function(id) {
+      if (state[id]) { var el = document.getElementById(id); if (el) el.classList.add('done'); }
     });
     updateProgress();
   }
