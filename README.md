@@ -168,6 +168,14 @@ rules:
 
 ---
 
+## Lab Expansion Checklist
+
+An interactive build checklist tracking the next phase of this lab — Elastic SIEM integration, 5 new MITRE TTPs, KQL detections, and incident reports.
+
+👉 [View the checklist](https://spac3gh0st00.github.io/SOC-Analyst-Lab/)
+
+---
+
 ## References
 
 - [Part 1 — Eric Capuano's SOC Analyst Guide](https://blog.ecapuano.com/p/so-you-want-to-be-a-soc-analyst-part)
